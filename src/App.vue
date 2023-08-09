@@ -1,12 +1,14 @@
 <template>
-<h1 class="bg-slate-400">Hey!</h1>
+<SignupForm />
 </template>
 
 <script>
+import SignupForm from './components/SignupForm.vue'
 
 export default {
   name: 'App',
   components: {
+    SignupForm
   }
 }
 </script>
