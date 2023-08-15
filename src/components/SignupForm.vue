@@ -1,5 +1,8 @@
 <template>
-  <form class="max-w-md my-7 mx-auto bg-white p-10 rounded-xl">
+  <form
+    @submit.prevent="handleSubmit"
+    class="max-w-md my-7 mx-auto bg-white p-10 rounded-xl"
+  >
     <label class="inline-block tracking-wide text-slate-400 uppercase font-bold"
       >Email:</label
     >
@@ -9,6 +12,7 @@
       required
       v-model="email"
     />
+
     <label
       class="inline-block mb-2 tracking-wide text-slate-400 uppercase font-bold"
       >Password:</label
@@ -19,6 +23,9 @@
       required
       v-model="password"
     />
+    <div class="text-red-400 font-bold" v-if="passwordErr">
+      {{ passwordErr }}
+    </div>
 
     <label class="text-slate-400 uppercase font-bold">Role: </label>
     <select
@@ -29,7 +36,7 @@
       <option value="designer">Web Designer</option>
     </select>
 
-    <label class="text-slate-400 uppercase font-bold">Skill:</label>
+    <label class="text-slate-400 uppercase font-bold">Skill(alt + ','):</label>
     <input
       class="block py-3 mb-2 outline-none px-2 w-full box-border border-solid border-b-2 border-slate-800 text-slate-600"
       type="text"
@@ -54,6 +61,13 @@
         >Accept terms and conditions!</label
       >
     </div>
+    <div class="text-center">
+      <button
+        class="bg-blue-600 border-none py-3 px-5 mt-5 text-white rounded-3xl"
+      >
+        Create an Account!
+      </button>
+    </div>
   </form>
   <p class="text-center">Email: {{ email }}</p>
   <p class="text-center">Password: {{ password }}</p>
@@ -70,6 +84,7 @@ export default {
       termns: "",
       tempSkill: "",
       skills: [],
+      passwordErr: "",
     };
   },
   methods: {
@@ -86,6 +101,12 @@ export default {
       this.skills = this.skills.filter((item) => {
         return skill !== item;
       });
+    },
+    handleSubmit() {
+      this.passwordErr =
+        this.password.length > 5
+          ? ""
+          : "Small password! Need more than 9 symbols!";
     },
   },
 };
