@@ -34,13 +34,15 @@
       class="block py-3 mb-2 outline-none px-2 w-full box-border border-solid border-b-2 border-slate-800 text-slate-600"
       type="text"
       v-model="tempSkill"
-      @keyup="addSkill"
+      @keyup.alt="addSkill"
     />
-    <div v-for="skill in skills" :key="skill">
-      {{ skill }}
+    <div
+      class="inline-block tracking-wider mt-5 mr-2 px-2 py-2 rounded-2xl bg-slate-300 text-gray-500 font-bold cursor-pointer"
+      v-for="skill in skills"
+      :key="skill"
+    >
+      <span @click="removeSkill(skill)">{{ skill }}</span>
     </div>
-    <!-- TODO: change "relative and left-40" for normal center position -->
-    <button @click="removeSkill" class="bg-slate-300 rounded-md p-2 relative left-40">Delete</button>
     <div>
       <input
         v-model="termns"
@@ -48,7 +50,7 @@
         type="checkbox"
         required
       />
-      <label class="text-slate-400 uppercase font-mono"
+      <label class="text-slate-400 text-sm uppercase font-mono"
         >Accept terms and conditions!</label
       >
     </div>
@@ -80,9 +82,11 @@ export default {
         this.tempSkill = "";
       }
     },
-    removeSkill(e){
-        this.skills.pop()
-    }
+    removeSkill(skill) {
+      this.skills = this.skills.filter((item) => {
+        return skill !== item;
+      });
+    },
   },
 };
 </script>
